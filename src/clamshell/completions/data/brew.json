@@ -1,0 +1,18 @@
+{
+  "tool": "brew",
+  "subcommands": {
+    "install": "Install a formula or cask",
+    "uninstall": "Uninstall a formula or cask",
+    "reinstall": "Reinstall a formula or cask",
+    "upgrade": "Upgrade outdated formulae and casks",
+    "update": "Fetch the newest version of Homebrew",
+    "list": "List installed formulae and casks",
+    "search": "Search for formulae and casks",
+    "info": "Display info about a formula or cask",
+    "doctor": "Check your system for potential problems",
+    "outdated": "List outdated formulae and casks",
+    "cleanup": "Remove stale lock files and outdated downloads",
+    "tap": "Tap a new formula repository",
+    "services": "Manage background services"
+  }
+}

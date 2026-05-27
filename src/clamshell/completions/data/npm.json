@@ -1,0 +1,19 @@
+{
+  "tool": "npm",
+  "subcommands": {
+    "install": "Install a package",
+    "uninstall": "Remove a package",
+    "update": "Update packages",
+    "run": "Run a script defined in package.json",
+    "start": "Run the start script",
+    "test": "Run the test script",
+    "build": "Run the build script",
+    "init": "Create a package.json file",
+    "publish": "Publish a package",
+    "version": "Bump a package version",
+    "list": "List installed packages",
+    "outdated": "Check for outdated packages",
+    "audit": "Run a security audit",
+    "ci": "Clean install from package-lock"
+  }
+}

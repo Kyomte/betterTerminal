@@ -1,0 +1,26 @@
+{
+  "tool": "git",
+  "subcommands": {
+    "add": "Add file contents to the index",
+    "branch": "List, create, or delete branches",
+    "checkout": "Switch branches or restore files",
+    "clone": "Clone a repository into a new directory",
+    "commit": "Record changes to the repository",
+    "diff": "Show changes between commits, commit and working tree, etc",
+    "fetch": "Download objects and refs from another repository",
+    "init": "Create an empty Git repository",
+    "log": "Show commit logs",
+    "merge": "Join two or more development histories together",
+    "pull": "Fetch from and integrate with another repository",
+    "push": "Update remote refs along with associated objects",
+    "rebase": "Reapply commits on top of another base tip",
+    "remote": "Manage tracked repositories",
+    "reset": "Reset current HEAD to the specified state",
+    "restore": "Restore working tree files",
+    "show": "Show various types of objects",
+    "stash": "Stash the changes in a dirty working directory",
+    "status": "Show the working tree status",
+    "switch": "Switch branches",
+    "tag": "Create, list, delete or verify a tag object"
+  }
+}

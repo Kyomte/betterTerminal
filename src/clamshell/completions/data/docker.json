@@ -1,0 +1,22 @@
+{
+  "tool": "docker",
+  "subcommands": {
+    "build": "Build an image from a Dockerfile",
+    "run": "Create and start a container",
+    "ps": "List containers",
+    "images": "List images",
+    "pull": "Download an image from a registry",
+    "push": "Upload an image to a registry",
+    "exec": "Run a command in a running container",
+    "logs": "Fetch container logs",
+    "stop": "Stop running containers",
+    "start": "Start stopped containers",
+    "restart": "Restart containers",
+    "rm": "Remove containers",
+    "rmi": "Remove images",
+    "compose": "Define and run multi-container apps",
+    "inspect": "Show low-level info on objects",
+    "network": "Manage networks",
+    "volume": "Manage volumes"
+  }
+}
