@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Protocol
 
-from clamshell.frecency import FrecencyStore
+from betterterminal.frecency import FrecencyStore
 
 
 @dataclass
@@ -71,11 +71,11 @@ def builtin_j(state: ShellState, args: list[str]) -> BuiltinResult:
 
 def builtin_help(state: ShellState, args: list[str]) -> BuiltinResult:
     text = (
-        "clamshell built-ins:\n"
+        "betterterminal built-ins:\n"
         "  cd [dir]        change directory (default: $HOME)\n"
         "  pwd             print working directory\n"
         "  j [query]       fuzzy-jump to a tracked directory (no query: list top)\n"
-        "  exit            quit clamshell\n"
+        "  exit            quit betterterminal\n"
         "  help            show this message\n"
         "\n"
         "Tab completes commands, subcommands, and paths.\n"

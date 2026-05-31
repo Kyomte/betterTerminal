@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from clamshell.frecency import FrecencyStore, Visit
+from betterterminal.frecency import FrecencyStore, Visit
 
 
 def test_frecency_factors():

@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from clamshell.builtins import BuiltinResult, run_builtin
-from clamshell.frecency import FrecencyStore
+from betterterminal.builtins import BuiltinResult, run_builtin
+from betterterminal.frecency import FrecencyStore
 
 
 class FakeState:

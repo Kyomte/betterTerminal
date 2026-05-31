@@ -11,16 +11,16 @@ from pathlib import Path
 
 import pytest
 
-from clamshell.app import ClamshellApp
-from clamshell.frecency import FrecencyStore
+from betterterminal.app import BetterTerminalApp
+from betterterminal.frecency import FrecencyStore
 from textual.widgets import Input, RichLog
 
 
 def _patch_frecency(monkeypatch, db_path: Path):
     """Force FrecencyStore to use a temp DB."""
-    from clamshell import app as app_mod
-    from clamshell import builtins as builtins_mod
-    import clamshell.frecency as frec_mod
+    from betterterminal import app as app_mod
+    from betterterminal import builtins as builtins_mod
+    import betterterminal.frecency as frec_mod
 
     real = frec_mod.FrecencyStore
 
@@ -33,7 +33,7 @@ def _patch_frecency(monkeypatch, db_path: Path):
 
 async def test_help_builtin_runs(tmp_path, monkeypatch):
     _patch_frecency(monkeypatch, tmp_path / "f.db")
-    app = ClamshellApp()
+    app = BetterTerminalApp()
     async with app.run_test() as pilot:
         input_widget = app.query_one("#prompt-input", Input)
         input_widget.value = "help"
@@ -48,20 +48,20 @@ async def test_help_builtin_runs(tmp_path, monkeypatch):
 
 async def test_echo_command(tmp_path, monkeypatch):
     _patch_frecency(monkeypatch, tmp_path / "f.db")
-    app = ClamshellApp()
+    app = BetterTerminalApp()
     async with app.run_test() as pilot:
         input_widget = app.query_one("#prompt-input", Input)
-        input_widget.value = "echo hello-clamshell"
+        input_widget.value = "echo hello-betterterminal"
         await pilot.press("enter")
         await pilot.pause(0.1)
         log = app.query_one("#output", RichLog)
         rendered = "\n".join(str(line) for line in log.lines)
-        assert "hello-clamshell" in rendered
+        assert "hello-betterterminal" in rendered
 
 
 async def test_tab_opens_completion_popup(tmp_path, monkeypatch):
     _patch_frecency(monkeypatch, tmp_path / "f.db")
-    app = ClamshellApp()
+    app = BetterTerminalApp()
     async with app.run_test() as pilot:
         input_widget = app.query_one("#prompt-input", Input)
         input_widget.value = "git "
@@ -77,7 +77,7 @@ async def test_tab_opens_completion_popup(tmp_path, monkeypatch):
 async def test_tab_single_suggestion_inserts(tmp_path, monkeypatch):
     """If there's only one matching subcommand, Tab inserts it directly."""
     _patch_frecency(monkeypatch, tmp_path / "f.db")
-    app = ClamshellApp()
+    app = BetterTerminalApp()
     async with app.run_test() as pilot:
         input_widget = app.query_one("#prompt-input", Input)
         # "git stat" matches only "status".
@@ -93,7 +93,7 @@ async def test_cd_updates_prompt(tmp_path, monkeypatch):
     _patch_frecency(monkeypatch, tmp_path / "f.db")
     sub = tmp_path / "deep-dir"
     sub.mkdir()
-    app = ClamshellApp()
+    app = BetterTerminalApp()
     async with app.run_test() as pilot:
         app.cwd = tmp_path
         app._refresh_prompt()
@@ -108,7 +108,7 @@ async def test_j_jumps(tmp_path, monkeypatch):
     _patch_frecency(monkeypatch, tmp_path / "f.db")
     target = tmp_path / "destination-folder"
     target.mkdir()
-    app = ClamshellApp()
+    app = BetterTerminalApp()
     async with app.run_test() as pilot:
         # Manually record the target so j can find it.
         app.frecency.record(target)

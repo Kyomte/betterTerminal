@@ -1,6 +1,6 @@
 """Fallback: parse `<tool> --help` to extract subcommands.
 
-Caches results to ~/.clamshell/help-cache/<tool>.json, keyed by tool path mtime
+Caches results to ~/.betterterminal/help-cache/<tool>.json, keyed by tool path mtime
 so an upgrade invalidates the cache.
 """
 
@@ -16,7 +16,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 
-CACHE_DIR = Path.home() / ".clamshell" / "help-cache"
+CACHE_DIR = Path.home() / ".betterterminal" / "help-cache"
 
 # Lines like "  status      Show the working tree status"
 # Allow 2+ spaces between the word and the description.

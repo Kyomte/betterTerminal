@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from clamshell.executor import run_external
+from betterterminal.executor import run_external
 
 
 def test_run_echo(tmp_path):

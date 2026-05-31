@@ -23,7 +23,7 @@ def load(tool: str) -> ToolCompletion | None:
     if tool in _CACHE:
         return _CACHE[tool]
     try:
-        data_pkg = resources.files("clamshell.completions.data")
+        data_pkg = resources.files("betterterminal.completions.data")
         path = data_pkg.joinpath(f"{tool}.json")
         if not path.is_file():
             _CACHE[tool] = None
@@ -43,7 +43,7 @@ def load(tool: str) -> ToolCompletion | None:
 
 def known_tools() -> list[str]:
     """List the tool names we have JSON completions for."""
-    data_pkg = resources.files("clamshell.completions.data")
+    data_pkg = resources.files("betterterminal.completions.data")
     out: list[str] = []
     for entry in data_pkg.iterdir():
         name = entry.name

@@ -11,11 +11,11 @@ from textual.binding import Binding
 from textual.containers import Container
 from textual.widgets import Input, ListItem, ListView, RichLog, Static, Label
 
-from clamshell import builtins
-from clamshell.completer import Suggestion, suggest
-from clamshell.executor import run_external
-from clamshell.frecency import FrecencyStore
-from clamshell.parser import ParseError, tokenize
+from betterterminal import builtins
+from betterterminal.completer import Suggestion, suggest
+from betterterminal.executor import run_external
+from betterterminal.frecency import FrecencyStore
+from betterterminal.parser import ParseError, tokenize
 
 
 class CompletionList(ListView):
@@ -30,7 +30,7 @@ class CompletionList(ListView):
         self.app.query_one("#prompt-input", Input).focus()
 
 
-class ClamshellApp(App):
+class BetterTerminalApp(App):
     CSS = """
     Screen {
         layout: vertical;
@@ -94,7 +94,7 @@ class ClamshellApp(App):
 
     def on_mount(self) -> None:
         log = self.query_one("#output", RichLog)
-        log.write(Text("clamshell v0.1 — type `help` for built-ins, Tab to complete\n", style="bold cyan"))
+        log.write(Text("betterterminal v0.1 — type `help` for built-ins, Tab to complete\n", style="bold cyan"))
         self.query_one("#prompt-input", Input).focus()
 
     # ----- helpers -----

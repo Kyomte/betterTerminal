@@ -19,7 +19,7 @@ from pathlib import Path
 from rapidfuzz import fuzz
 
 
-DEFAULT_DB_PATH = Path.home() / ".clamshell" / "frecency.db"
+DEFAULT_DB_PATH = Path.home() / ".betterterminal" / "frecency.db"
 
 
 @dataclass

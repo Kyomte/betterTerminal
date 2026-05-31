@@ -1,4 +1,4 @@
-from clamshell.parser import ParseError, current_token, tokenize
+from betterterminal.parser import ParseError, current_token, tokenize
 import pytest
 
 

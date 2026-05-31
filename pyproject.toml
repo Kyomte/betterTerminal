@@ -1,5 +1,5 @@
 [project]
-name = "clamshell"
+name = "betterterminal"
 version = "0.1.0"
 description = "A custom shell with smart autocomplete and zoxide-style directory jumping"
 requires-python = ">=3.11"
@@ -12,7 +12,7 @@ dependencies = [
 dev = ["pytest>=7.0", "pytest-asyncio>=0.21"]
 
 [project.scripts]
-clamshell = "clamshell.__main__:main"
+betterterminal = "betterterminal.__main__:main"
 
 [build-system]
 requires = ["setuptools>=61"]
@@ -22,7 +22,7 @@ build-backend = "setuptools.build_meta"
 where = ["src"]
 
 [tool.setuptools.package-data]
-clamshell = ["completions/data/*.json"]
+betterterminal = ["completions/data/*.json"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"

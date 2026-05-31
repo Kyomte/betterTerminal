@@ -6,9 +6,9 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 
-from clamshell.builtins import BUILTINS
-from clamshell.completions import db, help_parser
-from clamshell.parser import current_token, split_words
+from betterterminal.builtins import BUILTINS
+from betterterminal.completions import db, help_parser
+from betterterminal.parser import current_token, split_words
 
 
 @dataclass
@@ -123,7 +123,7 @@ def _command_completions(prefix: str) -> list[Suggestion]:
 
     for tool in db.known_tools():
         if tool.startswith(prefix) and tool not in seen:
-            out.append(Suggestion(text=tool + " ", display=tool, description="tool (clamshell knows subcommands)"))
+            out.append(Suggestion(text=tool + " ", display=tool, description="tool (betterterminal knows subcommands)"))
             seen.add(tool)
 
     if prefix:

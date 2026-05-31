@@ -4,13 +4,13 @@ from pathlib import Path
 
 import pytest
 
-from clamshell.app import ClamshellApp
+from betterterminal.app import BetterTerminalApp
 from textual.widgets import Input, RichLog
 
 
 def _patch_frecency(monkeypatch, db_path: Path):
-    from clamshell import app as app_mod
-    import clamshell.frecency as frec_mod
+    from betterterminal import app as app_mod
+    import betterterminal.frecency as frec_mod
 
     real = frec_mod.FrecencyStore
 
@@ -30,7 +30,7 @@ async def test_full_user_session(tmp_path, monkeypatch):
     proj_a.mkdir()
     proj_b.mkdir()
 
-    app = ClamshellApp()
+    app = BetterTerminalApp()
     async with app.run_test() as pilot:
         app.cwd = tmp_path
         app._refresh_prompt()
@@ -41,8 +41,9 @@ async def test_full_user_session(tmp_path, monkeypatch):
         await pilot.press("enter")
         await pilot.pause()
         log = app.query_one("#output", RichLog)
-        rendered = "\n".join(str(line) for line in log.lines)
-        # RichLog may word-wrap long paths; check that the basename is present.
+        # Extract raw text from segments (str(Strip) only shows the repr, and
+        # joining strips with "\n" splits any wrapped path across newlines).
+        rendered = "".join(seg.text for strip in log.lines for seg in strip)
         assert tmp_path.name in rendered
 
         # 2) cd into alpha-project
@@ -87,7 +88,7 @@ async def test_full_user_session(tmp_path, monkeypatch):
 async def test_tab_completion_with_help_parser_fallback(tmp_path, monkeypatch):
     """Tab on a tool we don't have JSON for should try --help fallback."""
     _patch_frecency(monkeypatch, tmp_path / "f.db")
-    app = ClamshellApp()
+    app = BetterTerminalApp()
     async with app.run_test() as pilot:
         input_w = app.query_one("#prompt-input", Input)
         # `git` is in our JSON db, so this verifies the primary path.
@@ -102,7 +103,7 @@ async def test_tab_completion_with_help_parser_fallback(tmp_path, monkeypatch):
 
 async def test_unknown_command_shows_error(tmp_path, monkeypatch):
     _patch_frecency(monkeypatch, tmp_path / "f.db")
-    app = ClamshellApp()
+    app = BetterTerminalApp()
     async with app.run_test() as pilot:
         input_w = app.query_one("#prompt-input", Input)
         input_w.value = "this-command-does-not-exist-xyz"
@@ -118,7 +119,7 @@ async def test_bare_directory_auto_cds(tmp_path, monkeypatch):
     _patch_frecency(monkeypatch, tmp_path / "f.db")
     sub = tmp_path / "auto-target"
     sub.mkdir()
-    app = ClamshellApp()
+    app = BetterTerminalApp()
     async with app.run_test() as pilot:
         app.cwd = tmp_path
         app._refresh_prompt()

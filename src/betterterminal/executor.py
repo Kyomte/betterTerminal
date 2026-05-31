@@ -39,8 +39,8 @@ def run_external(argv: list[str], cwd: Path, env: dict[str, str] | None = None) 
     except FileNotFoundError:
         return ExecResult(
             stdout="",
-            stderr=f"clamshell: command not found: {argv[0]}\n",
+            stderr=f"betterterminal: command not found: {argv[0]}\n",
             returncode=127,
         )
     except PermissionError as exc:
-        return ExecResult(stdout="", stderr=f"clamshell: {exc}\n", returncode=126)
+        return ExecResult(stdout="", stderr=f"betterterminal: {exc}\n", returncode=126)

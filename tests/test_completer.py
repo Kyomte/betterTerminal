@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from clamshell.completer import suggest
-from clamshell.completions import db
+from betterterminal.completer import suggest
+from betterterminal.completions import db
 
 
 def test_load_known_tool():

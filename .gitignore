@@ -16,8 +16,8 @@ dist/
 .coverage
 htmlcov/
 
-# clamshell runtime data
-.clamshell/
+# betterterminal runtime data
+.betterterminal/
 
 # OS
 .DS_Store
