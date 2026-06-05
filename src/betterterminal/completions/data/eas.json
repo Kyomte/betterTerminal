@@ -1,0 +1,26 @@
+{
+  "tool": "eas",
+  "subcommands": {
+    "account": "Manage the current EAS account",
+    "analytics": "Display or toggle EAS analytics",
+    "branch": "Manage EAS Update branches",
+    "build": "Start a cloud build for the project",
+    "channel": "Manage EAS Update channels",
+    "config": "Show the project EAS config",
+    "credentials": "Manage credentials for the project",
+    "device": "Manage Apple devices for ad-hoc internal distribution",
+    "diagnostics": "Display EAS CLI environment info",
+    "env": "Manage environment variables",
+    "init": "Initialize a project to use EAS",
+    "login": "Log in to an Expo account",
+    "logout": "Log out of an Expo account",
+    "metadata": "Manage app store metadata",
+    "open": "Open the project page in the browser",
+    "project": "Manage the current EAS project",
+    "secret": "Manage project and account secrets",
+    "submit": "Submit a build to the Apple App Store or Google Play",
+    "update": "Publish an EAS Update",
+    "webhook": "Manage webhooks",
+    "whoami": "Show the currently logged-in Expo account"
+  }
+}

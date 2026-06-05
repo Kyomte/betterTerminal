@@ -1,0 +1,29 @@
+{
+  "tool": "pnpm",
+  "subcommands": {
+    "add": "Install a package",
+    "audit": "Check for known security issues",
+    "build": "Run the build script",
+    "create": "Create a project from a starter",
+    "dlx": "Fetch a package and run it",
+    "exec": "Run a shell command in the scope of the project",
+    "fetch": "Populate the store from a lockfile",
+    "import": "Generate pnpm-lock.yaml from another lockfile",
+    "init": "Create a package.json file",
+    "install": "Install all dependencies",
+    "licenses": "Check licenses in consumed packages",
+    "link": "Link a package to another package",
+    "list": "List installed packages",
+    "outdated": "Check for outdated packages",
+    "patch": "Prepare a package for patching",
+    "publish": "Publish a package to the registry",
+    "remove": "Remove a package",
+    "run": "Run a script defined in package.json",
+    "start": "Run the start script",
+    "store": "Manage the package store",
+    "test": "Run the test script",
+    "unlink": "Unlink a previously linked package",
+    "update": "Update packages to their latest version",
+    "why": "Show which packages depend on a given package"
+  }
+}

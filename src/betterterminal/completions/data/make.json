@@ -1,0 +1,18 @@
+{
+  "tool": "make",
+  "subcommands": {
+    "all": "Build the default target",
+    "build": "Compile the project",
+    "check": "Run checks or tests",
+    "clean": "Remove build artifacts",
+    "distclean": "Remove all generated files",
+    "format": "Format the source code",
+    "help": "Show available targets",
+    "install": "Install the built artifacts",
+    "lint": "Run linters",
+    "release": "Produce a release build",
+    "run": "Run the built artifact",
+    "test": "Run the test suite",
+    "uninstall": "Remove installed artifacts"
+  }
+}

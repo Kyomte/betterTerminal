@@ -1,0 +1,33 @@
+{
+  "tool": "pytest",
+  "subcommands": {},
+  "flags": [
+    "-v",
+    "-vv",
+    "-q",
+    "-x",
+    "-s",
+    "-k",
+    "-m",
+    "--lf",
+    "--ff",
+    "--tb=short",
+    "--tb=long",
+    "--tb=line",
+    "--tb=no",
+    "--maxfail",
+    "--durations",
+    "--collect-only",
+    "--co",
+    "--cov",
+    "--cov-report",
+    "--cov-branch",
+    "--no-header",
+    "--no-summary",
+    "--pdb",
+    "--trace",
+    "--showlocals",
+    "--strict-markers",
+    "--strict-config"
+  ]
+}

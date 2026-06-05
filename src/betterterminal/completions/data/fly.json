@@ -1,0 +1,29 @@
+{
+  "tool": "fly",
+  "subcommands": {
+    "apps": "Manage Fly applications",
+    "auth": "Manage authentication",
+    "certs": "Manage app TLS certificates",
+    "console": "Run a console in a new or existing machine",
+    "deploy": "Deploy Fly applications",
+    "dig": "DNS lookups",
+    "info": "Show detailed app information",
+    "ips": "Manage IP addresses for apps",
+    "launch": "Create and configure a new app from source code",
+    "logs": "Stream logs for an app",
+    "machine": "Manage Fly machines",
+    "open": "Open browser to the current deployed app",
+    "orgs": "Manage Fly organizations",
+    "platform": "Show platform regions and VM sizes",
+    "postgres": "Manage Postgres clusters",
+    "redis": "Manage Upstash Redis databases",
+    "regions": "Manage regions for an app",
+    "releases": "List app releases",
+    "scale": "Scale app resources",
+    "secrets": "Manage app secrets",
+    "ssh": "Use SSH to log into or run commands on machines",
+    "status": "Show app status",
+    "version": "Show flyctl version information",
+    "volumes": "Manage app volumes"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "tool": "yarn",
+  "subcommands": {
+    "add": "Install a package",
+    "audit": "Check for known security issues",
+    "build": "Run the build script",
+    "cache": "Manage the global Yarn cache",
+    "create": "Create a project from a starter",
+    "global": "Install or manage globally installed packages",
+    "info": "Show information about a package",
+    "init": "Create a package.json file",
+    "install": "Install all dependencies",
+    "link": "Symlink a package folder during development",
+    "list": "List installed packages",
+    "outdated": "Check for outdated packages",
+    "publish": "Publish a package to the registry",
+    "remove": "Remove a package",
+    "run": "Run a script defined in package.json",
+    "start": "Run the start script",
+    "test": "Run the test script",
+    "upgrade": "Upgrade packages to their latest version",
+    "version": "Bump a package version",
+    "why": "Show why a package is installed",
+    "workspaces": "Manage workspaces"
+  }
+}

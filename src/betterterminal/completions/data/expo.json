@@ -1,0 +1,21 @@
+{
+  "tool": "expo",
+  "subcommands": {
+    "build": "Build the native binary (legacy classic build)",
+    "config": "Show the project config",
+    "customize": "Generate native code to customize the project",
+    "doctor": "Diagnose issues with the project",
+    "export": "Export the static files of the app for hosting on a web server",
+    "install": "Install a package with proper version checking",
+    "login": "Log in to an Expo account",
+    "logout": "Log out of an Expo account",
+    "prebuild": "Generate native code for the project (Expo prebuild)",
+    "publish": "Deploy a project to Expo hosting",
+    "register": "Sign up for a new Expo account",
+    "run:android": "Build and run the Android app locally",
+    "run:ios": "Build and run the iOS app locally",
+    "start": "Start a local dev server for the app",
+    "upgrade": "Upgrade the project to a specific SDK version",
+    "whoami": "Show the currently logged-in Expo account"
+  }
+}
