@@ -85,6 +85,35 @@ async def test_full_user_session(tmp_path, monkeypatch):
         assert app.cwd == proj_b.resolve()
 
 
+async def test_cd_dash_toggles_previous_directory(tmp_path, monkeypatch):
+    """`cd -` should return to the directory we were in before the last cd."""
+    _patch_frecency(monkeypatch, tmp_path / "f.db")
+    sub = tmp_path / "child"
+    sub.mkdir()
+    app = BetterTerminalApp()
+    async with app.run_test() as pilot:
+        app.cwd = tmp_path
+        app.prev_cwd = None
+        app._refresh_prompt()
+        input_w = app.query_one("#prompt-input", Input)
+
+        input_w.value = "cd child"
+        await pilot.press("enter")
+        await pilot.pause()
+        assert app.cwd == sub.resolve()
+
+        input_w.value = "cd -"
+        await pilot.press("enter")
+        await pilot.pause()
+        assert app.cwd == tmp_path.resolve()
+
+        # A second `cd -` toggles back into child.
+        input_w.value = "cd -"
+        await pilot.press("enter")
+        await pilot.pause()
+        assert app.cwd == sub.resolve()
+
+
 async def test_tab_completion_with_help_parser_fallback(tmp_path, monkeypatch):
     """Tab on a tool we don't have JSON for should try --help fallback."""
     _patch_frecency(monkeypatch, tmp_path / "f.db")
@@ -99,6 +128,86 @@ async def test_tab_completion_with_help_parser_fallback(tmp_path, monkeypatch):
         items = [s.display for s in app._completion_items]
         assert "status" in items
         assert "commit" in items
+
+
+async def test_pipe_runs_in_app(tmp_path, monkeypatch):
+    """`printf ... | wc -l` should display the piped result."""
+    _patch_frecency(monkeypatch, tmp_path / "f.db")
+    app = BetterTerminalApp()
+    async with app.run_test() as pilot:
+        app.cwd = tmp_path
+        input_w = app.query_one("#prompt-input", Input)
+        input_w.value = "printf 'a\\nb\\nc\\n' | wc -l"
+        await pilot.press("enter")
+        await pilot.pause(0.1)
+        log = app.query_one("#output", RichLog)
+        rendered = "".join(seg.text for strip in log.lines for seg in strip)
+        assert "3" in rendered
+
+
+async def test_redirect_writes_file_in_app(tmp_path, monkeypatch):
+    """`echo ... > file` should create the file from inside the app."""
+    _patch_frecency(monkeypatch, tmp_path / "f.db")
+    app = BetterTerminalApp()
+    async with app.run_test() as pilot:
+        app.cwd = tmp_path
+        input_w = app.query_one("#prompt-input", Input)
+        input_w.value = "echo from-betterterminal > note.txt"
+        await pilot.press("enter")
+        await pilot.pause(0.1)
+        assert (tmp_path / "note.txt").read_text().strip() == "from-betterterminal"
+
+
+async def test_env_var_substitution_in_app(tmp_path, monkeypatch):
+    """`echo $VAR` should expand the variable before running."""
+    _patch_frecency(monkeypatch, tmp_path / "f.db")
+    monkeypatch.setenv("BT_GREETING", "expanded-value")
+    app = BetterTerminalApp()
+    async with app.run_test() as pilot:
+        app.cwd = tmp_path
+        input_w = app.query_one("#prompt-input", Input)
+        input_w.value = "echo $BT_GREETING"
+        await pilot.press("enter")
+        await pilot.pause(0.1)
+        log = app.query_one("#output", RichLog)
+        rendered = "".join(seg.text for strip in log.lines for seg in strip)
+        assert "expanded-value" in rendered
+
+
+async def test_glob_expansion_in_app(tmp_path, monkeypatch):
+    """`echo *.py` should expand to the matching files."""
+    _patch_frecency(monkeypatch, tmp_path / "f.db")
+    (tmp_path / "alpha.py").touch()
+    (tmp_path / "beta.py").touch()
+    (tmp_path / "gamma.txt").touch()
+    app = BetterTerminalApp()
+    async with app.run_test() as pilot:
+        app.cwd = tmp_path
+        input_w = app.query_one("#prompt-input", Input)
+        input_w.value = "echo *.py"
+        await pilot.press("enter")
+        await pilot.pause(0.1)
+        log = app.query_one("#output", RichLog)
+        rendered = "".join(seg.text for strip in log.lines for seg in strip)
+        assert "alpha.py" in rendered
+        assert "beta.py" in rendered
+        assert "gamma.txt" not in rendered
+
+
+async def test_cd_with_env_var(tmp_path, monkeypatch):
+    """`cd $TARGET` should expand the variable for the builtin."""
+    _patch_frecency(monkeypatch, tmp_path / "f.db")
+    sub = tmp_path / "var-target"
+    sub.mkdir()
+    monkeypatch.setenv("BT_TARGET", str(sub))
+    app = BetterTerminalApp()
+    async with app.run_test() as pilot:
+        app.cwd = tmp_path
+        input_w = app.query_one("#prompt-input", Input)
+        input_w.value = "cd $BT_TARGET"
+        await pilot.press("enter")
+        await pilot.pause()
+        assert app.cwd == sub.resolve()
 
 
 async def test_unknown_command_shows_error(tmp_path, monkeypatch):

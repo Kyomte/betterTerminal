@@ -7,6 +7,7 @@ from betterterminal.frecency import FrecencyStore
 class FakeState:
     def __init__(self, cwd: Path, db_path: Path):
         self.cwd = cwd
+        self.prev_cwd = None
         self.frecency = FrecencyStore(db_path=db_path)
 
 
@@ -24,6 +25,26 @@ def test_cd_missing_directory(tmp_path):
     r = run_builtin(state, ["cd", "does-not-exist"])
     assert r.returncode == 1
     assert "no such" in r.error
+
+
+def test_cd_dash_no_previous(tmp_path):
+    state = FakeState(tmp_path, tmp_path / "f.db")
+    r = run_builtin(state, ["cd", "-"])
+    assert r.returncode == 1
+    assert "no previous" in r.error
+
+
+def test_cd_dash_returns_to_previous(tmp_path):
+    sub = tmp_path / "sub"
+    sub.mkdir()
+    state = FakeState(tmp_path, tmp_path / "f.db")
+    # Simulate the app having moved from tmp_path into sub.
+    state.prev_cwd = tmp_path
+    state.cwd = sub.resolve()
+    r = run_builtin(state, ["cd", "-"])
+    assert r.new_cwd == tmp_path
+    assert str(tmp_path) in r.output
+    assert not r.error
 
 
 def test_pwd(tmp_path):

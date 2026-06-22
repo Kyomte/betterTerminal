@@ -20,6 +20,7 @@ class BuiltinResult:
 
 class ShellState(Protocol):
     cwd: Path
+    prev_cwd: Path | None
     frecency: FrecencyStore
 
 
@@ -33,9 +34,16 @@ def builtin_exit(state: ShellState, args: list[str]) -> BuiltinResult:
 def builtin_cd(state: ShellState, args: list[str]) -> BuiltinResult:
     if len(args) > 1:
         return BuiltinResult(error="cd: too many arguments\n", returncode=1)
+    if args and args[0] == "-":
+        prev = getattr(state, "prev_cwd", None)
+        if prev is None:
+            return BuiltinResult(error="cd: no previous directory\n", returncode=1)
+        if not prev.is_dir():
+            return BuiltinResult(error=f"cd: no such directory: {prev}\n", returncode=1)
+        state.frecency.record(prev)
+        # Like POSIX shells, `cd -` echoes the directory it lands in.
+        return BuiltinResult(new_cwd=prev, output=str(prev) + "\n")
     target = args[0] if args else str(Path.home())
-    if target == "-":
-        return BuiltinResult(error="cd: '-' not supported yet\n", returncode=1)
     expanded = Path(target).expanduser()
     if not expanded.is_absolute():
         expanded = state.cwd / expanded
@@ -72,7 +80,7 @@ def builtin_j(state: ShellState, args: list[str]) -> BuiltinResult:
 def builtin_help(state: ShellState, args: list[str]) -> BuiltinResult:
     text = (
         "betterterminal built-ins:\n"
-        "  cd [dir]        change directory (default: $HOME)\n"
+        "  cd [dir]        change directory (default: $HOME; `cd -` toggles previous)\n"
         "  pwd             print working directory\n"
         "  j [query]       fuzzy-jump to a tracked directory (no query: list top)\n"
         "  exit            quit betterterminal\n"

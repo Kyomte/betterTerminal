@@ -11,11 +11,11 @@ from textual.binding import Binding
 from textual.containers import Container
 from textual.widgets import Input, ListItem, ListView, RichLog, Static, Label
 
-from betterterminal import builtins
+from betterterminal import builtins, pipeline
 from betterterminal.completer import Suggestion, suggest
 from betterterminal.executor import run_external
 from betterterminal.frecency import FrecencyStore
-from betterterminal.parser import ParseError, tokenize
+from betterterminal.parser import ParseError, expand, expand_vars, tokenize
 
 
 class CompletionList(ListView):
@@ -78,6 +78,7 @@ class BetterTerminalApp(App):
     def __init__(self) -> None:
         super().__init__()
         self.cwd: Path = Path.cwd()
+        self.prev_cwd: Path | None = None  # for `cd -`
         self.frecency = FrecencyStore()
         # Record the starting cwd so `j` has at least one entry on first run.
         self.frecency.record(self.cwd)
@@ -111,6 +112,13 @@ class BetterTerminalApp(App):
     def _refresh_prompt(self) -> None:
         self.query_one("#cwd-label", Label).update(self._prompt_text())
 
+    def _set_cwd(self, new_cwd: Path) -> None:
+        """Move to a new working directory, remembering the old one for `cd -`."""
+        if new_cwd != self.cwd:
+            self.prev_cwd = self.cwd
+        self.cwd = new_cwd
+        self._refresh_prompt()
+
     def _log_input(self, line: str) -> None:
         log = self.query_one("#output", RichLog)
         log.write(Text(f"{self._prompt_text().strip()} $ {line}", style="bold green"))
@@ -138,6 +146,12 @@ class BetterTerminalApp(App):
         self._run_line(line)
 
     def _run_line(self, line: str) -> None:
+        # Pipes and redirects (`|`, `>`, `>>`, `<`) take a separate path: they
+        # run as a real subprocess chain and don't involve built-ins.
+        if pipeline.has_operators(line):
+            self._run_pipeline(line)
+            return
+
         try:
             argv = tokenize(line)
         except ParseError as exc:
@@ -147,16 +161,23 @@ class BetterTerminalApp(App):
             return
 
         if builtins.is_builtin(argv[0]):
+            # Built-ins get variable substitution (e.g. `cd $HOME`) but not glob
+            # expansion — `cd *` should not silently pick the first match.
+            argv = [argv[0]] + [expand_vars(a) for a in argv[1:]]
             result = builtins.run_builtin(self, argv)
             self._log_output(result.output)
             if result.error:
                 self._log_output(result.error, style="red")
             if result.new_cwd is not None:
-                self.cwd = result.new_cwd
-                self._refresh_prompt()
+                self._set_cwd(result.new_cwd)
             if result.exit:
                 self.frecency.close()
                 self.exit()
+            return
+
+        # External commands get full expansion: vars then globs.
+        argv = expand(argv, self.cwd)
+        if not argv:
             return
 
         # Bare directory? Auto-cd convenience.
@@ -169,13 +190,27 @@ class BetterTerminalApp(App):
             if candidate.is_dir():
                 result = builtins.run_builtin(self, ["cd", argv[0]])
                 if result.new_cwd:
-                    self.cwd = result.new_cwd
-                    self._refresh_prompt()
+                    self._set_cwd(result.new_cwd)
                 if result.error:
                     self._log_output(result.error, style="red")
                 return
 
         result = run_external(argv, self.cwd)
+        if result.stdout:
+            self._log_output(result.stdout)
+        if result.stderr:
+            self._log_output(result.stderr, style="red")
+        if result.returncode != 0 and not result.stderr:
+            self._log_output(f"[exit {result.returncode}]", style="dim red")
+
+    def _run_pipeline(self, line: str) -> None:
+        """Run a line containing pipes and/or redirects as a subprocess chain."""
+        try:
+            parsed = pipeline.parse(line)
+        except ParseError as exc:
+            self._log_output(f"parse error: {exc}\n", style="red")
+            return
+        result = pipeline.run_pipeline(parsed, self.cwd)
         if result.stdout:
             self._log_output(result.stdout)
         if result.stderr:
