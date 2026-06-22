@@ -1,0 +1,17 @@
+{
+  "tool": "tmux",
+  "subcommands": {
+    "attach-session": "Attach to an existing session",
+    "detach-client": "Detach the current client",
+    "kill-server": "Kill the tmux server and all sessions",
+    "kill-session": "Destroy a session",
+    "list-sessions": "List all sessions",
+    "list-windows": "List windows in a session",
+    "new-session": "Create a new session",
+    "new-window": "Create a new window",
+    "rename-session": "Rename a session",
+    "rename-window": "Rename a window",
+    "split-window": "Split a window into panes",
+    "switch-client": "Switch the current client to another session"
+  }
+}

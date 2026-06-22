@@ -1,0 +1,22 @@
+{
+  "tool": "poetry",
+  "subcommands": {
+    "add": "Add a new dependency to pyproject.toml",
+    "build": "Build the source and wheels archives",
+    "check": "Validate the content of the pyproject.toml file",
+    "config": "Manage configuration settings",
+    "export": "Export the lock file to other formats",
+    "init": "Create a basic pyproject.toml file",
+    "install": "Install the project dependencies",
+    "lock": "Lock the project dependencies",
+    "new": "Create a new Python project",
+    "publish": "Publish the package to a remote repository",
+    "remove": "Remove a dependency from pyproject.toml",
+    "run": "Run a command inside the project's environment",
+    "search": "Search for packages on PyPI",
+    "shell": "Spawn a shell within the virtual environment",
+    "show": "Show information about packages",
+    "update": "Update the dependencies and the lock file",
+    "version": "Show or bump the project version"
+  }
+}

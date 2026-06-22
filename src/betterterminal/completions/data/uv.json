@@ -1,0 +1,20 @@
+{
+  "tool": "uv",
+  "subcommands": {
+    "add": "Add dependencies to the project",
+    "build": "Build Python packages into source and binary distributions",
+    "cache": "Manage the uv cache",
+    "init": "Create a new project",
+    "lock": "Update the project's lockfile",
+    "pip": "Manage Python packages with a pip-compatible interface",
+    "publish": "Upload distributions to an index",
+    "python": "Manage Python versions and installations",
+    "remove": "Remove dependencies from the project",
+    "run": "Run a command or script",
+    "sync": "Update the project's environment",
+    "tool": "Run and install commands provided by Python packages",
+    "tree": "Display the project's dependency tree",
+    "venv": "Create a virtual environment",
+    "version": "Read or update the project's version"
+  }
+}

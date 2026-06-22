@@ -1,0 +1,19 @@
+{
+  "tool": "gradle",
+  "subcommands": {
+    "assemble": "Assemble the outputs of the project",
+    "build": "Assemble and test the project",
+    "check": "Run all checks",
+    "clean": "Delete the build directory",
+    "dependencies": "Display the dependencies of the project",
+    "help": "Display help for a task",
+    "init": "Initialize a new Gradle build",
+    "javadoc": "Generate Javadoc API documentation",
+    "projects": "Display the sub-projects of the project",
+    "publish": "Publish all publications to all repositories",
+    "run": "Run the project as a JVM application",
+    "tasks": "Display the tasks runnable from the project",
+    "test": "Run the unit tests",
+    "wrapper": "Generate the Gradle wrapper files"
+  }
+}

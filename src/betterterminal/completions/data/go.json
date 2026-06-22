@@ -1,0 +1,22 @@
+{
+  "tool": "go",
+  "subcommands": {
+    "build": "Compile packages and dependencies",
+    "clean": "Remove object files and cached files",
+    "doc": "Show documentation for package or symbol",
+    "env": "Print Go environment information",
+    "fix": "Update packages to use new APIs",
+    "fmt": "Gofmt (reformat) package sources",
+    "generate": "Generate Go files by processing source",
+    "get": "Add dependencies to current module and install them",
+    "install": "Compile and install packages and dependencies",
+    "list": "List packages or modules",
+    "mod": "Module maintenance",
+    "run": "Compile and run Go program",
+    "test": "Test packages",
+    "tool": "Run specified go tool",
+    "version": "Print Go version",
+    "vet": "Report likely mistakes in packages",
+    "work": "Workspace maintenance"
+  }
+}

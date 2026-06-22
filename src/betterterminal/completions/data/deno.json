@@ -1,0 +1,29 @@
+{
+  "tool": "deno",
+  "subcommands": {
+    "add": "Add dependencies",
+    "bench": "Run benchmarks",
+    "cache": "Cache the dependencies",
+    "check": "Type-check the dependencies",
+    "compile": "Compile the script into a self-contained executable",
+    "completions": "Generate shell completions",
+    "coverage": "Print coverage reports",
+    "doc": "Show documentation for a module",
+    "eval": "Evaluate a script from the command line",
+    "fmt": "Format source files",
+    "info": "Show info about cache or info related to source file",
+    "init": "Initialize a new project",
+    "install": "Install a script as an executable",
+    "lint": "Lint source files",
+    "lsp": "Start the language server",
+    "publish": "Publish the current working directory's package or workspace",
+    "remove": "Remove dependencies",
+    "repl": "Start an interactive read-eval-print loop",
+    "run": "Run a JavaScript or TypeScript program",
+    "serve": "Run a server",
+    "task": "Run a task defined in the configuration file",
+    "test": "Run tests",
+    "uninstall": "Uninstall a script previously installed",
+    "upgrade": "Upgrade deno to the latest version"
+  }
+}

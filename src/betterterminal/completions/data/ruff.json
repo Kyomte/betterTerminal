@@ -1,0 +1,13 @@
+{
+  "tool": "ruff",
+  "subcommands": {
+    "check": "Run the linter",
+    "clean": "Clear any caches in the current and nested directories",
+    "config": "List or describe the available configuration options",
+    "format": "Run the formatter",
+    "linter": "List all supported upstream linters",
+    "rule": "Explain a rule (or all rules)",
+    "server": "Run the language server",
+    "version": "Display Ruff's version"
+  }
+}

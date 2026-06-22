@@ -1,0 +1,27 @@
+{
+  "tool": "kubectl",
+  "subcommands": {
+    "apply": "Apply a configuration to a resource by file or stdin",
+    "attach": "Attach to a running container",
+    "config": "Modify kubeconfig files",
+    "cordon": "Mark node as unschedulable",
+    "cp": "Copy files and directories to and from containers",
+    "create": "Create a resource from a file or stdin",
+    "delete": "Delete resources",
+    "describe": "Show details of a specific resource or group of resources",
+    "drain": "Drain node in preparation for maintenance",
+    "edit": "Edit a resource on the server",
+    "exec": "Execute a command in a container",
+    "explain": "Get documentation for a resource",
+    "expose": "Expose a resource as a new Kubernetes service",
+    "get": "Display one or many resources",
+    "logs": "Print the logs for a container in a pod",
+    "patch": "Update fields of a resource",
+    "port-forward": "Forward one or more local ports to a pod",
+    "rollout": "Manage the rollout of a resource",
+    "run": "Run a particular image on the cluster",
+    "scale": "Set a new size for a deployment, replica set, or replication controller",
+    "top": "Display resource (CPU/memory) usage",
+    "version": "Print the client and server version information"
+  }
+}

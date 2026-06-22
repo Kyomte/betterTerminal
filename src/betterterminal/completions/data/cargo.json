@@ -1,0 +1,26 @@
+{
+  "tool": "cargo",
+  "subcommands": {
+    "add": "Add dependencies to a Cargo.toml manifest file",
+    "bench": "Execute all benchmarks of a local package",
+    "build": "Compile the current package",
+    "check": "Check the current package for errors",
+    "clean": "Remove generated artifacts",
+    "clippy": "Run the Clippy linter",
+    "doc": "Build the documentation for the package",
+    "fetch": "Fetch dependencies of a package",
+    "fix": "Automatically fix lint warnings",
+    "fmt": "Format the source code",
+    "init": "Create a new package in an existing directory",
+    "install": "Install a Rust binary",
+    "new": "Create a new cargo package",
+    "publish": "Upload a package to the registry",
+    "remove": "Remove dependencies from a Cargo.toml manifest file",
+    "run": "Run a binary or example of the local package",
+    "search": "Search packages on crates.io",
+    "test": "Execute all unit and integration tests",
+    "tree": "Display a tree of dependencies",
+    "uninstall": "Remove a Rust binary",
+    "update": "Update dependencies in Cargo.lock"
+  }
+}

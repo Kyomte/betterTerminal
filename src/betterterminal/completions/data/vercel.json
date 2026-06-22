@@ -1,0 +1,24 @@
+{
+  "tool": "vercel",
+  "subcommands": {
+    "build": "Build the project locally",
+    "deploy": "Deploy your project to Vercel",
+    "dev": "Start a local development server",
+    "domains": "Manage domains",
+    "env": "Manage environment variables",
+    "git": "Manage the Git provider connection",
+    "init": "Initialize an example project",
+    "inspect": "Show information about a deployment",
+    "link": "Link a local directory to a Vercel project",
+    "list": "List recent deployments",
+    "login": "Log in to your Vercel account",
+    "logout": "Log out of your Vercel account",
+    "logs": "Display logs for a deployment",
+    "project": "Manage projects",
+    "pull": "Pull environment variables and project settings",
+    "redeploy": "Rebuild and deploy a previous deployment",
+    "remove": "Remove a deployment",
+    "rollback": "Roll back to a previous deployment",
+    "whoami": "Show the username of the current user"
+  }
+}

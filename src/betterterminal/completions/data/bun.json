@@ -1,0 +1,21 @@
+{
+  "tool": "bun",
+  "subcommands": {
+    "add": "Add a dependency to package.json",
+    "build": "Bundle TypeScript and JavaScript into a single file",
+    "create": "Create a new project from a template",
+    "dev": "Start a development server",
+    "init": "Initialize a Bun project in the current directory",
+    "install": "Install dependencies for a package.json",
+    "link": "Register or link a local npm package",
+    "outdated": "Display the latest versions of outdated dependencies",
+    "patch": "Prepare a package for patching",
+    "pm": "Manage packages and the package cache",
+    "remove": "Remove a dependency from package.json",
+    "run": "Execute a file or a package.json script",
+    "test": "Run unit tests with Bun's test runner",
+    "update": "Update outdated dependencies",
+    "upgrade": "Upgrade to the latest version of Bun",
+    "x": "Auto-install and execute a package binary"
+  }
+}

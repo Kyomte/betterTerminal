@@ -21,6 +21,25 @@ def test_known_tools_includes_git():
     assert "npm" in tools
 
 
+def test_known_tools_includes_expanded_set():
+    """The completion DB should cover the broader set of common CLI tools."""
+    tools = set(db.known_tools())
+    expected = {"cargo", "go", "kubectl", "poetry", "uv", "terraform", "deno", "bun"}
+    assert expected.issubset(tools)
+    # And we should know subcommands for them, not fall back to --help parsing.
+    cargo = db.load("cargo")
+    assert cargo is not None
+    assert "build" in cargo.subcommands
+    assert "test" in cargo.subcommands
+
+
+def test_suggest_cargo_subcommands(tmp_path):
+    line = "cargo "
+    suggestions = suggest(line, len(line), tmp_path)
+    names = {s.display for s in suggestions}
+    assert {"build", "run", "test", "add"}.issubset(names)
+
+
 def test_suggest_command_prefix(tmp_path):
     suggestions = suggest("gi", 2, tmp_path)
     names = {s.display for s in suggestions}

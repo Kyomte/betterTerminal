@@ -1,0 +1,22 @@
+{
+  "tool": "systemctl",
+  "subcommands": {
+    "daemon-reload": "Reload the systemd manager configuration",
+    "disable": "Disable one or more unit files",
+    "enable": "Enable one or more unit files",
+    "is-active": "Check whether units are active",
+    "is-enabled": "Check whether unit files are enabled",
+    "is-failed": "Check whether units are in a failed state",
+    "kill": "Send a signal to processes of a unit",
+    "list-units": "List loaded units",
+    "list-unit-files": "List installed unit files",
+    "mask": "Mask one or more units",
+    "reload": "Reload one or more units",
+    "restart": "Start or restart one or more units",
+    "show": "Show properties of units, jobs, or the manager",
+    "start": "Start one or more units",
+    "status": "Show runtime status of one or more units",
+    "stop": "Stop one or more units",
+    "unmask": "Unmask one or more units"
+  }
+}

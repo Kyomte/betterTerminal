@@ -1,0 +1,15 @@
+{
+  "tool": "apt",
+  "subcommands": {
+    "autoremove": "Remove automatically installed packages no longer needed",
+    "full-upgrade": "Upgrade packages, removing others if required",
+    "install": "Install packages",
+    "list": "List packages based on criteria",
+    "purge": "Remove packages and their configuration files",
+    "remove": "Remove packages",
+    "search": "Search for packages",
+    "show": "Show package details",
+    "update": "Update the list of available packages",
+    "upgrade": "Upgrade installed packages"
+  }
+}
