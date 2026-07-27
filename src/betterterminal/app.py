@@ -6,14 +6,14 @@ from pathlib import Path
 
 from rich.text import Text
 from textual import on
-from textual.app import App, ComposeResult
+from textual.app import App, ComposeResult, SuspendNotSupported
 from textual.binding import Binding
 from textual.containers import Container
 from textual.widgets import Input, ListItem, ListView, RichLog, Static, Label
 
 from betterterminal import builtins, pipeline
 from betterterminal.completer import Suggestion, suggest
-from betterterminal.executor import run_external
+from betterterminal.executor import is_interactive, run_external, run_interactive
 from betterterminal.frecency import FrecencyStore
 from betterterminal.parser import ParseError, expand, expand_vars, tokenize
 
@@ -195,6 +195,10 @@ class BetterTerminalApp(App):
                     self._log_output(result.error, style="red")
                 return
 
+        if is_interactive(argv):
+            self._run_interactive(argv)
+            return
+
         result = run_external(argv, self.cwd)
         if result.stdout:
             self._log_output(result.stdout)
@@ -216,6 +220,23 @@ class BetterTerminalApp(App):
         if result.stderr:
             self._log_output(result.stderr, style="red")
         if result.returncode != 0 and not result.stderr:
+            self._log_output(f"[exit {result.returncode}]", style="dim red")
+
+    def _run_interactive(self, argv: list[str]) -> None:
+        """Drop out of the TUI, run the child on the real TTY, then resume."""
+        try:
+            with self.suspend():
+                result = run_interactive(argv, self.cwd)
+        except SuspendNotSupported:
+            self._log_output(
+                f"`{argv[0]}` is interactive — run betterterminal in a real "
+                f"terminal to use it.",
+                style="yellow",
+            )
+            return
+        if result.error:
+            self._log_output(result.error, style="red")
+        elif result.returncode != 0:
             self._log_output(f"[exit {result.returncode}]", style="dim red")
 
     # ----- completion -----

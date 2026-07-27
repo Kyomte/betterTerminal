@@ -117,3 +117,18 @@ async def test_j_jumps(tmp_path, monkeypatch):
         await pilot.press("enter")
         await pilot.pause()
         assert app.cwd == target.resolve()
+
+
+async def test_interactive_command_graceful_in_headless(tmp_path, monkeypatch):
+    """An interactive command under run_test() can't suspend (HeadlessDriver),
+    so it must log a 'real terminal' message instead of crashing."""
+    _patch_frecency(monkeypatch, tmp_path / "f.db")
+    app = BetterTerminalApp()
+    async with app.run_test() as pilot:
+        input_widget = app.query_one("#prompt-input", Input)
+        input_widget.value = "vim"
+        await pilot.press("enter")
+        await pilot.pause()
+        log = app.query_one("#output", RichLog)
+        rendered = "\n".join(str(line) for line in log.lines)
+        assert "real terminal" in rendered
